@@ -1,143 +1,139 @@
-.kintoneplugin-input-text {
-  align-items: center;
-}
-
-.container {
-  width: 100%;
-  min-width: 100%;
-}
-
-table td:first-child {
-  border-bottom-style: hidden;
-  border-top-style: hidden;
-  border-left-style: hidden;
-}
-
-.hidden {
-  display: none;
-}
-
-
-#button-action {
+.box_content_group {
   display: flex;
-  margin-left: 5%;
-  margin-top: 35px;
-  gap: 1%;
+  flex-direction: column;
+  gap: 20px;
 }
 
+.input_token_content {
+  width: 100%;
+}
+.input_token {
+  width: 70%;
+}
 
+.boxcontroGroup {
+  display: flex;
+  gap: 25px;
+}
 
-tbody tr {
+/* Color Picker */
+.color_content_box{
+  margin-bottom: 20px;
+}
+
+.color_group_box,
+.row_content_item {
+  display: flex;
   align-items: center;
+  gap: 20px;
 }
 
-#kintoneplugin-table-th-table {
-  height: 0.5px;
-  background-color: #3333;
-  display: none;
-}
-
-#label-show-title {
-  margin-top: 10px;
-  margin-left: 53px;
-  font-size: 20px;
+.head_name h3{
   font-weight: bold;
 }
 
-#td-table-space-prompt-template-button {
-  border: 1px solid #3333;
-  margin-left: 50px;
+
+/* Color Picker */
+.cp-color-picker {
+  background-color: #fff !important;
+  box-sizing: border-box;
+  width: 275px;
+  height: 205px;
+  border-radius: 0px !important;
+  box-shadow: 0 0 8px 2px rgba(0,0,0,.1);
 }
 
-#table-space-prompt-template-button {
-  margin-left: 35px;
+.cp-color-picker .cp-panel {
+  width: 75px;
+  line-height: 21px;
+  float: right;
+  overflow: visible
+}
+.cp-color-picker .cp-panel div {
+  margin-bottom: 4px;
+  padding-left: 10px;
+  display: inline-block;
+}
+.cp-color-picker .cp-panel div label {
+  width: 10px;
+  float: left;
+  text-align: left;
+  line-height: 20px;
+  padding-right: 4px;
+  display: inline-block;
+}
+.cp-color-picker .cp-panel div input {
+  width: 50px;
+  height: 20px;
+  font-size: 12px;
+  padding: 4px 2px;
+  box-sizing: border-box;
+  text-align: right;
+  color: #a7a7a7;
+  background-color: #ffffff;
+  border: 1px solid #e3e7e8;
+  box-shadow: 2px 2px 6px #f5f5f5 inset, -2px -2px 6px #f5f5f5 inset;
+  display: inline-block;
+}
+.cp-color-picker .cp-panel div input:focus {
+  background-color: #e2f2fe;
+  box-shadow: none;
+}
+.cp-color-picker .cp-panel hr {
+  border-top: 1px solid #e3e7e8;
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
 }
 
-.button-add-remove-row-promptSetting {
-  display: flex;
+.cp-color-picker .cp-z-slider {
+  height: 160px;
 }
 
-.button-add-remove-row-table-spaceForPrompt {
-  display: flex;
-  margin-top: 20px;
+.cp-color-picker .cp-xy-slider {
+  width: 160px;
+  height: 160px;
+}
+.cp-color-picker .cp-xy-slider:active {
+  cursor: none;
 }
 
-.validation-error {
-  border-color: red;
+.cp-color-picker .cp-disp {
+  float: left;
+  clear: both;
 }
 
-.swal2-content {
-  max-height: 300px;
-  /* Adjust this value based on the desired maximum height */
-  overflow-y: auto;
-  width: auto;
-
+.cp-color-picker .cp-disp button {
+  width: 78px;
+  height: 25px;
 }
 
-.swal2-header {
-  width: auto;
+.cp-color-picker .cp-disp #cp-submit {
+  font-size: 12px;
+  color: white;
+  text-align: center;
+  background-color: #3498db;
+  border: 1px solid #e3e7e8;
+  box-shadow: 1px 1px 1px #8ccbee inset;
 }
 
-.row {
-  display: flex;
-  margin: 8px;
+.cp-color-picker .cp-disp #cp-submit:hover {
+  cursor: pointer;
+  background-color: #1d6fa5;
 }
 
-.row>div {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 10px;
+.cp-color-picker .cp-disp #cp-cancel {
+  font-size: 12px;
+  margin-left: 4px;
+  text-align: center;
+  color: #3498db;
+  background-color: #f7f9fa;
+  border: 1px solid #e3e7e8;
+  box-shadow: 1px 1px 1px #fff inset;
 }
 
-#kintoneplugin-setting-space {
-  width: 75%;
-  /* max-width: 850px; */
-  margin: 0 !important;
-}
-
-#kintoneplugin-setting-space th:first-child {
-  width: 5%;
-}
-
-#kintoneplugin-setting-space #td-table-space-prompt-template-button {
-  width: 70%;
-}
-#kintoneplugin-setting-search #td-table-space-prompt-template-button {
-  width: 35%;
-}
-
-#kintoneplugin-setting-space .kintoneplugin-table-td-operation.operation-column {
-  width: 100px !important;
-}
-
-.drag-icon {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100% !important; 
-  padding: 20px;
-}
-
-.drag-icon i{
-  font-size: 20px;
-  cursor: grab;
-}
-
-.ui-state-highlight {
-  height: 2.5em;
-  background-color: #f0f0f0;
-  border: 1px dashed #ccc;
-}
-
-
-.swal2-content p{
-  margin: 0 !important;
-}
-
-.custom-confirm-button {
-  color: #f7f9fa !important;
-}
-
-.custom-cancel-button {
-  color:  #3498db!important;
+.cp-color-picker .cp-disp #cp-cancel:hover {
+  cursor: pointer;
+  box-shadow: none;
+  background-color: #c8d6dd;
 }
