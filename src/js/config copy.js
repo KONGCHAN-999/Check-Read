@@ -1,19 +1,21 @@
 jQuery.noConflict();
 
-(async function ($, PLUGIN_ID) {
+(function ($, PLUGIN_ID) {
   "use strict";
 
   class KintoneConfigManager {
     constructor() {
       this.$form = $(".box_container");
       this.appId = kintone.app.getId();
-      this.apiEndpointLayout = kintone.api.url("/k/v1/preview/app/form/layout.json", true);
+      this.apiEndpoint = kintone.api.url("/k/v1/preview/app/form/fields", true);
       this.formProperties = null;
     }
 
     async init() {
       try {
-        await this.setupFormFields();
+        const response = await this.fetchFormProperties();
+        this.formProperties = response.properties;
+        this.setupFormFields(); // Populate dropdown with Space field elementIds
         await this.loadDefaultConfig();
         this.attachEventListeners();
       } catch (error) {
@@ -21,65 +23,32 @@ jQuery.noConflict();
       }
     }
 
-    async setupFormFields() {
-      try {
-        // Get layout for space fields
-        const GETSPACE = await new Promise((resolve, reject) => {
-          kintone.api(
-            this.apiEndpointLayout,
-            "GET",
-            { app: this.appId },
-            resolve,
-            reject
-          );
-        });
+    fetchFormProperties() {
+      return new Promise((resolve, reject) => {
+        kintone.api(this.apiEndpoint, "GET", { app: this.appId }, resolve, reject);
+      });
+    }
 
-        // Extract space fields
-        const SPACE = GETSPACE.layout.reduce((setSpace, layoutFromApp) => {
-          if (layoutFromApp.type === "GROUP") {
-            layoutFromApp.layout.forEach(layoutItem => {
-              layoutItem.fields.forEach(field => {
-                if (field.type === "SPACER" && field.elementId) {
-                  setSpace.push({
-                    code: field.elementId
-                  });
-                }
-              });
-            });
-          } else {
-            layoutFromApp.fields.forEach(field => {
-              if (field.type === "SPACER" && field.elementId) {
-                setSpace.push({
-                  code: field.elementId
-                });
-              }
-            });
-          }
-          return setSpace;
-        }, []);
+    setupFormFields() {
+      // Populate Space field dropdown with elementIds
+      const $spaceDropdown = $("#display_location");
 
-        // Sort space fields
-        const SORTSPACE = SPACE.sort((a, b) => {
-          return a.code.localeCompare(b.code);
-        });
+      // Iterate through form properties to find SPACER fields
+      Object.keys(this.formProperties).forEach((key) => {
+        const field = this.formProperties[key];
+        console.log("Field:", field);
+        
+        if (field.type === "SPACER" && field.elementId) {
+          const $option = $('<option></option>')
+            .val(field.elementId) // Value is the elementId
+            .text(field.elementId); // Display text is the elementId
+          $spaceDropdown.append($option);
+        }
+      });
 
-        // Populate the display_location dropdown
-        const $displayLocation = $("#display_location");
-
-        SORTSPACE.forEach((space) => {
-          $displayLocation.append(
-            $("<option>")
-              .attr("value", space.code)
-              .text(space.code)
-          );
-        });
-
-        console.log("Space fields populated:", SORTSPACE);
-      } catch (error) {
-        console.error("Error setting up form fields:", error);
-        const $displayLocation = $("#display_location");
-        $displayLocation.empty();
-        $displayLocation.append($("<option>").attr("value", "").text("Error loading spaces"));
+      // If no Space fields are found, add a placeholder option
+      if ($spaceDropdown.find("option").length === 1) {
+        $spaceDropdown.append('<option value="" disabled>No Space Fields Available</option>');
       }
     }
 
@@ -94,12 +63,14 @@ jQuery.noConflict();
         const configData = savedConfig[0];
         $("#read_db_app_id").val(configData.read_db_app_id || "");
         $("#read_db_app_api_token").val(configData.read_db_app_api_token || "");
-        $("#display_location").val(configData.display_location || "");
+        $("#display_location").val(configData.display_location || ""); // Load saved Space elementId
         $("#read_count_display_text").val(configData.read_count_display_text || "Read:{%Number%}");
         $("#reset_read_data").prop("checked", !!configData.reset_read_data);
         $("#title-color").val(configData.titleColor || "");
         $("#button-color").val(configData.buttonColor || "");
         $("#button-text-color").val(configData.buttonTextColor || "");
+
+        console.log("Configuration loaded successfully:", configData);
       } catch (error) {
         console.error("Error loading configuration:", error);
       }
@@ -134,7 +105,7 @@ jQuery.noConflict();
       configData.push({
         read_db_app_id,
         read_db_app_api_token: $("#read_db_app_api_token").val(),
-        display_location,
+        display_location, // Save the selected Space elementId
         read_count_display_text,
         reset_read_data: $("#reset_read_data").is(":checked"),
         titleColor: $("#title-color").val(),
@@ -148,7 +119,7 @@ jQuery.noConflict();
     }
   }
 
-  // Color picker config
+  // Color picker config (unchanged)
   const defaultColorPickerConfig = {
     opacity: false,
     doRender: false,
@@ -246,6 +217,8 @@ jQuery.noConflict();
         colorPickerButtonText.colorPicker.toggle(false);
       }
     });
+
+    // Initialize the config manager
     const configManager = new KintoneConfigManager();
     configManager.init();
   });
