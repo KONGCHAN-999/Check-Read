@@ -16,6 +16,11 @@
   gap: 25px;
 }
 
+.span_requie{
+  color: red;
+  font-size: 18px;
+}
+
 /* Color Picker */
 .color_content_box{
   margin-bottom: 20px;

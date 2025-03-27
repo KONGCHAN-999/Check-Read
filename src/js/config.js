@@ -16,6 +16,7 @@ jQuery.noConflict();
         await this.setupFormFields();
         await this.loadDefaultConfig();
         this.attachEventListeners();
+        this.eventOnchangeColor();
       } catch (error) {
         console.error("Initialization failed:", error);
       }
@@ -74,7 +75,6 @@ jQuery.noConflict();
           );
         });
 
-        console.log("Space fields populated:", SORTSPACE);
       } catch (error) {
         console.error("Error setting up form fields:", error);
         const $displayLocation = $("#display_location");
@@ -86,12 +86,9 @@ jQuery.noConflict();
     async loadDefaultConfig() {
       try {
         const config = kintone.plugin.app.getConfig(PLUGIN_ID);
-        if (!config || !config.config) return;
-
         const savedConfig = JSON.parse(config.config);
-        if (!savedConfig || savedConfig.length === 0) return;
 
-        const configData = savedConfig[0];
+        const configData = savedConfig;
         $("#read_db_app_id").val(configData.read_db_app_id || "");
         $("#read_db_app_api_token").val(configData.read_db_app_api_token || "");
         $("#display_location").val(configData.display_location || "");
@@ -106,42 +103,51 @@ jQuery.noConflict();
       }
     }
 
+    eventOnchangeColor(){
+      $("#unread-text-color").on("change", function(){
+        $(this).css("color", $(this).val());
+      });
+      $("#unread-bg-color").on("change", function(){
+        $(this).css("color", $(this).val());
+      });
+      $("#read-text-color").on("change", function(){
+        $(this).css("color", $(this).val());
+      });
+      $("#read-bg-color").on("change", function(){
+        $(this).css("color", $(this).val());
+      });
+    }
+
     attachEventListeners() {
       this.$form.on("submit", (e) => this.handleSubmit(e));
     }
 
     handleSubmit(e) {
       e.preventDefault();
-      const configData = [];
-      let isValid = true;
-
-      const read_db_app_id = $("#read_db_app_id").val();
-      const read_count_display_text = $("#read_count_display_text").val();
-      const display_location = $("#display_location").val();
-
-      if (!read_db_app_id) {
-        isValid = false;
-        alert("Please enter the App ID");
-      } else if (!read_count_display_text) {
-        isValid = false;
-        alert("Please enter the Display Text");
-      } else if (!display_location) {
-        isValid = false;
-        alert("Please select a Space Field for display location");
-      }
-      if (!isValid) return;
-
-      configData.push({
-        read_db_app_id,
+      const configData = {
+        read_db_app_id: $("#read_db_app_id").val(),
         read_db_app_api_token: $("#read_db_app_api_token").val(),
-        display_location,
-        read_count_display_text,
+        display_location: $("#display_location").val(),
+        read_count_display_text: $("#read_count_display_text").val(),
         reset_read_data: $("#reset_read_data").is(":checked"),
         unread_text_color: $("#unread-text-color").val(),
         unread_bg_color: $("#unread-bg-color").val(),
         read_text_color: $("#read-text-color").val(),
         read_bg_color: $("#read-bg-color").val(),
-      });
+      };
+
+      let isValid = true;
+      if (!configData.read_db_app_id) {
+        isValid = false;
+        alert("Please enter the App ID");
+      } else if (!configData.read_db_app_api_token) {
+        isValid = false;
+        alert("Please enter the Display Text");
+      } else if (!configData.read_count_display_text) {
+        isValid = false;
+        alert("Please select a Space Field for Read count display text");
+      }
+      if (!isValid) return;
 
       kintone.plugin.app.setConfig({ config: JSON.stringify(configData) }, () => {
         console.log("Configuration saved:", configData);
