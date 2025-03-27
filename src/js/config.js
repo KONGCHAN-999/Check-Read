@@ -97,9 +97,10 @@ jQuery.noConflict();
         $("#display_location").val(configData.display_location || "");
         $("#read_count_display_text").val(configData.read_count_display_text || "Read:{%Number%}");
         $("#reset_read_data").prop("checked", !!configData.reset_read_data);
-        $("#title-color").val(configData.titleColor || "");
-        $("#button-color").val(configData.buttonColor || "");
-        $("#button-text-color").val(configData.buttonTextColor || "");
+        $("#unread-text-color").val(configData.unread_text_color || "").css("color", configData.unread_text_color);
+        $("#unread-bg-color").val(configData.unread_bg_color || "").css("color", configData.unread_bg_color);
+        $("#read-text-color").val(configData.read_text_color || "").css("color", configData.read_text_color);
+        $("#read-bg-color").val(configData.read_bg_color || "").css("color", configData.read_bg_color);
       } catch (error) {
         console.error("Error loading configuration:", error);
       }
@@ -128,7 +129,6 @@ jQuery.noConflict();
         isValid = false;
         alert("Please select a Space Field for display location");
       }
-
       if (!isValid) return;
 
       configData.push({
@@ -137,9 +137,10 @@ jQuery.noConflict();
         display_location,
         read_count_display_text,
         reset_read_data: $("#reset_read_data").is(":checked"),
-        titleColor: $("#title-color").val(),
-        buttonColor: $("#button-color").val(),
-        buttonTextColor: $("#button-text-color").val(),
+        unread_text_color: $("#unread-text-color").val(),
+        unread_bg_color: $("#unread-bg-color").val(),
+        read_text_color: $("#read-text-color").val(),
+        read_bg_color: $("#read-bg-color").val(),
       });
 
       kintone.plugin.app.setConfig({ config: JSON.stringify(configData) }, () => {
@@ -160,14 +161,14 @@ jQuery.noConflict();
       $elm
         .prepend(
           '<div class="cp-panel">' +
-            '<div><label>R</label> <input type="number" max="255" min="0" class="cp-r" /></div>' +
-            '<div><label>G</label> <input type="number" max="255" min="0" class="cp-g" /></div>' +
-            '<div><label>B</label> <input type="number" max="255" min="0" class="cp-b" /></div>' +
-            "<hr>" +
-            '<div><label>H</label> <input type="number" max="360" min="0" class="cp-h" /></div>' +
-            '<div><label>S</label> <input type="number" max="100" min="0" class="cp-s" /></div>' +
-            '<div><label>V</label> <input type="number" max="100" min="0" class="cp-v" /></div>' +
-            "</div>"
+          '<div><label>R</label> <input type="number" max="255" min="0" class="cp-r" /></div>' +
+          '<div><label>G</label> <input type="number" max="255" min="0" class="cp-g" /></div>' +
+          '<div><label>B</label> <input type="number" max="255" min="0" class="cp-b" /></div>' +
+          "<hr>" +
+          '<div><label>H</label> <input type="number" max="360" min="0" class="cp-h" /></div>' +
+          '<div><label>S</label> <input type="number" max="100" min="0" class="cp-s" /></div>' +
+          '<div><label>V</label> <input type="number" max="100" min="0" class="cp-v" /></div>' +
+          "</div>"
         )
         .on("change", "input", function () {
           const value = this.value;
@@ -185,9 +186,9 @@ jQuery.noConflict();
 
       const $buttons = $elm.append(
         '<div class="cp-disp">' +
-          '<button type="button" id="cp-submit">OK</button>' +
-          '<button type="button" id="cp-cancel">Cancel</button>' +
-          "</div>"
+        '<button type="button" id="cp-submit">OK</button>' +
+        '<button type="button" id="cp-cancel">Cancel</button>' +
+        "</div>"
       );
 
       $buttons.on("click", "#cp-submit", () => {
@@ -230,20 +231,20 @@ jQuery.noConflict();
 
   $(document).ready(() => {
     // Initialize color pickers
-    const colorPickerTitle = $("#font-color-picker-title-icon").colorPicker(defaultColorPickerConfig);
-    const colorPickerButton = $("#bg-color-picker-button-icon").colorPicker(defaultColorPickerConfig);
-    const colorPickerButtonText = $("#font-color-picker-button-text-icon").colorPicker(
-      defaultColorPickerConfig
-    );
+    const unread_text_color = $("#unread-text-color-icon").colorPicker(defaultColorPickerConfig);
+    const unread_bg_color = $("#unread-bg-color-icon").colorPicker(defaultColorPickerConfig);
+    const read_text_color = $("#read-text-color-icon").colorPicker(defaultColorPickerConfig);
+    const read_bg_color = $("#read-bg-color-icon").colorPicker(defaultColorPickerConfig);
 
     $(document).keyup((event) => {
       const TAB_KEY_CODE = 9;
       const ENTER_KEY_CODE = 13;
       const ESC_KEY_CODE = 27;
       if ([TAB_KEY_CODE, ENTER_KEY_CODE, ESC_KEY_CODE].includes(event.keyCode)) {
-        colorPickerTitle.colorPicker.toggle(false);
-        colorPickerButton.colorPicker.toggle(false);
-        colorPickerButtonText.colorPicker.toggle(false);
+        unread_text_color.colorPicker.toggle(false);
+        unread_bg_color.colorPicker.toggle(false);
+        read_text_color.colorPicker.toggle(false);
+        read_bg_color.colorPicker.toggle(false);
       }
     });
     const configManager = new KintoneConfigManager();

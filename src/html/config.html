@@ -43,24 +43,24 @@
                 <label class="form-label">Record update item</label>
                 <div class="kintoneplugin-value">
                     <div class="kintoneplugin-input-checkbox"><span class="kintoneplugin-input-checkbox-item"><input
-                        type="checkbox" name="checkbox" value="0" id="reset_read_data" checked=""><label
-                        for="reset_read_data">Reset read data</label></span></div>
+                                type="checkbox" name="checkbox" value="0" id="reset_read_data" checked=""><label
+                                for="reset_read_data">Reset read data</label></span></div>
                 </div>
             </div>
         </div>
 
         <div class="head_name">
-            <h3>Color Settings</h3>
+            <h3>Unread Color Settings</h3>
         </div>
         <div class="color_content_box">
             <div class="color_group_box" id="color_group_box">
                 <div class="item">
-                    <label>Title Color</label>
+                    <label>Text Color</label>
                     <div class="row_content_item">
                         <div class="font-color-picker-read">
-                            <input type="text" id="title-color" class="kintoneplugin-input-text">
+                            <input type="text" id="unread-text-color" class="kintoneplugin-input-text">
                         </div>
-                        <svg id="font-color-picker-title-icon" style="cursor: pointer;" value="#000000" height="40"
+                        <svg id="unread-text-color-icon" style="cursor: pointer;" value="#000000" height="40"
                             viewBox="0 -960 960 960" width="40">
                             <path
                                 d="M211.593-103.434q-36.08 0-73.685-15.174-37.604-15.174-68.257-51.914 39.522-12 54.805-33.587 15.282-21.587 16.978-61.717 1.696-45.446 34.218-77.484 32.521-32.038 81-32.038 48.478 0 82.087 33.757 33.609 33.758 33.609 81.982 0 68.522-46.609 112.349-46.609 43.826-114.146 43.826Zm.016-70.175q35 0 62.5-25t27.5-61q0-20-12.5-32.5t-32.5-12.5q-20 0-32.5 12.5t-12.5 32.5q0 39-8.5 57.5t-31.5 22.5q6 1 20 3.5t20 2.5Zm241.87-175.869L350.478-457.479l395.218-395.783q14-13.435 31-14.218 17-.782 32 14.218l42.566 42.566q15 15 14.218 32.5-.783 17.5-14.218 31.5L453.479-349.478Zm-196.87 89.869Z" />
@@ -69,31 +69,54 @@
                 </div>
 
                 <div class="item">
-                    <label>Button Color</label>
+                    <label>Background Color</label>
                     <div class="row_content_item">
                         <div class="bg-color-picker-read">
-                            <input type="text" id="button-color" class="kintoneplugin-input-text">
+                            <input type="text" id="unread-bg-color" class="kintoneplugin-input-text">
                         </div>
-                        <svg id="bg-color-picker-button-icon" style="cursor: pointer;" value="#000000" height="40"
+                        <svg id="unread-bg-color-icon" style="cursor: pointer;" value="#000000" height="40"
                             viewBox="0 -960 960 960" width="40">
                             <path
                                 d="M211.593-103.434q-36.08 0-73.685-15.174-37.604-15.174-68.257-51.914 39.522-12 54.805-33.587 15.282-21.587 16.978-61.717 1.696-45.446 34.218-77.484 32.521-32.038 81-32.038 48.478 0 82.087 33.757 33.609 33.758 33.609 81.982 0 68.522-46.609 112.349-46.609 43.826-114.146 43.826Zm.016-70.175q35 0 62.5-25t27.5-61q0-20-12.5-32.5t-32.5-12.5q-20 0-32.5 12.5t-12.5 32.5q0 39-8.5 57.5t-31.5 22.5q6 1 20 3.5t20 2.5Zm241.87-175.869L350.478-457.479l395.218-395.783q14-13.435 31-14.218 17-.782 32 14.218l42.566 42.566q15 15 14.218 32.5-.783 17.5-14.218 31.5L453.479-349.478Zm-196.87 89.869Z" />
                         </svg>
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <div class="head_name">
+            <h3>Read Color Settings</h3>
+        </div>
+        <div class="color_content_box">
+            <div class="color_group_box" id="color_group_box">
                 <div class="item">
-                    <label>Button Text Color</label>
+                    <label>Text Color</label>
                     <div class="row_content_item">
-                        <div class="bg-color-picker-read">
-                            <input type="text" id="button-text-color" class="kintoneplugin-input-text">
+                        <div class="font-color-picker-read">
+                            <input type="text" id="read-text-color" class="kintoneplugin-input-text">
                         </div>
-                        <svg id="font-color-picker-button-text-icon" style="cursor: pointer;" value="#000000"
-                            height="40" viewBox="0 -960 960 960" width="40">
+                        <svg id="read-text-color-icon" style="cursor: pointer;" value="#000000" height="40"
+                            viewBox="0 -960 960 960" width="40">
                             <path
                                 d="M211.593-103.434q-36.08 0-73.685-15.174-37.604-15.174-68.257-51.914 39.522-12 54.805-33.587 15.282-21.587 16.978-61.717 1.696-45.446 34.218-77.484 32.521-32.038 81-32.038 48.478 0 82.087 33.757 33.609 33.758 33.609 81.982 0 68.522-46.609 112.349-46.609 43.826-114.146 43.826Zm.016-70.175q35 0 62.5-25t27.5-61q0-20-12.5-32.5t-32.5-12.5q-20 0-32.5 12.5t-12.5 32.5q0 39-8.5 57.5t-31.5 22.5q6 1 20 3.5t20 2.5Zm241.87-175.869L350.478-457.479l395.218-395.783q14-13.435 31-14.218 17-.782 32 14.218l42.566 42.566q15 15 14.218 32.5-.783 17.5-14.218 31.5L453.479-349.478Zm-196.87 89.869Z" />
                         </svg>
                     </div>
                 </div>
+
+                <div class="item">
+                    <label>Background Color</label>
+                    <div class="row_content_item">
+                        <div class="bg-color-picker-read">
+                            <input type="text" id="read-bg-color" class="kintoneplugin-input-text">
+                        </div>
+                        <svg id="read-bg-color-icon" style="cursor: pointer;" value="#000000" height="40"
+                            viewBox="0 -960 960 960" width="40">
+                            <path
+                                d="M211.593-103.434q-36.08 0-73.685-15.174-37.604-15.174-68.257-51.914 39.522-12 54.805-33.587 15.282-21.587 16.978-61.717 1.696-45.446 34.218-77.484 32.521-32.038 81-32.038 48.478 0 82.087 33.757 33.609 33.758 33.609 81.982 0 68.522-46.609 112.349-46.609 43.826-114.146 43.826Zm.016-70.175q35 0 62.5-25t27.5-61q0-20-12.5-32.5t-32.5-12.5q-20 0-32.5 12.5t-12.5 32.5q0 39-8.5 57.5t-31.5 22.5q6 1 20 3.5t20 2.5Zm241.87-175.869L350.478-457.479l395.218-395.783q14-13.435 31-14.218 17-.782 32 14.218l42.566 42.566q15 15 14.218 32.5-.783 17.5-14.218 31.5L453.479-349.478Zm-196.87 89.869Z" />
+                        </svg>
+                    </div>
+                </div>
+             
             </div>
         </div>
 
